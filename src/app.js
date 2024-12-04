@@ -26,9 +26,9 @@ app.get('/ab?cd', (req, res) => {
 
 
 //   This route path will match anything with an “a” in it.
-  app.get(/a/, (req, res) => {
-    res.send('/a/')
-  })
+//   app.get(/a/, (req, res) => {
+//     res.send('/a/')
+//   })
 
 
 
@@ -45,6 +45,53 @@ app.get('/ab?cd', (req, res) => {
       res.send(req.params)
     console.log(req.params);
   })
+
+
+//   More than one callback function can handle a route (make sure you specify the next object). For example:
+//   app.get('/example/b', (req, res, next) => {
+//     console.log('the response will be sent by the next function ...')
+//     next()
+//   }, (req, res) => {
+//     res.send('Hello from B!')
+//   })
+
+
+//   An array of callback functions can handle a route. For example:
+//   const cb0 = function (req, res, next) {
+//     console.log('CB0')
+//     next()
+//   }
+  
+//   const cb1 = function (req, res, next) {
+//     console.log('CB1')
+//     next()
+//   }
+  
+//   const cb2 = function (req, res) {
+//     res.send('Hello from C!')
+//   }
+  
+//   app.get('/example/c', [cb0, cb1, cb2])
+
+//   A combination of independent functions and arrays of functions can handle a route. For example:
+
+  const cb0 = function (req, res, next) {
+    console.log('CB0')
+    next()
+  }
+  
+  const cb1 = function (req, res, next) {
+    console.log('CB1')
+    next()
+  }
+  
+  app.get('/example/d', [cb0, cb1], (req, res, next) => {
+    console.log('the response will be sent by the next function ...')
+    next()
+  }, (req, res) => {
+    res.send('Hello from D!')
+  })
+  
 // respond with "hello world" when a POST request is made to the homepage
 app.post('/user', (req, res) => {
     res.send('user created!!')
