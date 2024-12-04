@@ -37,6 +37,14 @@ app.get('/ab?cd', (req, res) => {
   app.get(/.*fly$/, (req, res) => {
     res.send('/.*fly$/')
   })
+
+
+//   To define routes with route parameters, simply specify the route parameters in the path of the route as shown below.
+
+  app.get('/users/:userId/books/:bookId', (req, res) => {
+      res.send(req.params)
+    console.log(req.params);
+  })
 // respond with "hello world" when a POST request is made to the homepage
 app.post('/user', (req, res) => {
     res.send('user created!!')
